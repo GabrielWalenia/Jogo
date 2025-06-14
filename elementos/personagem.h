@@ -3,15 +3,15 @@
 
 #include "joystick.h"
 typedef struct{
-    unsigned char side_x;
-    unsigned char side_y;
-    unsigned int x;
-    unsigned int y;
+    char side_x;
+    char side_y;
+    int x;
+    int y;
     //unsigned char hp; -> cenas para proximos capitulos
     joystick *js;
 } personagem; 
 
-personagem *personagem_create(unsigned char side_x, unsigned char side_y, unsigned int x, unsigned int y, unsigned int max_x, unsigned int max_y);
-void personagem_move();
+personagem *personagem_create(char side_x, char side_y, int x, int y, int max_x, int max_y);
+void personagem_move(personagem *player, int steps, char trajectory, int max_x, int max_y);
 void personagem_destroy(personagem *element);
 #endif
