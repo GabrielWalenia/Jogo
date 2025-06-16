@@ -1,13 +1,17 @@
 #ifndef __ARMA__
 #define __ARMA__
 #include "municao.h"
+
+#define PISTOL_COOLDOWN 10
+
 typedef struct{
-    void *portador;
-    //unsigned int dano;
-    municao *municao;
+    char timer;	
+    //void *portador;
+    municao *disparos;
     
 } arma;
 
-arma *arma_create(void *portador);
+arma *arma_create();
+municao *arma_shot(short x, short y, char trajectory, arma *gun);
 void arma_destroy(arma *gun);
 #endif

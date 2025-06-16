@@ -25,6 +25,6 @@ void joystick_up(joystick *js){
 void joystick_down(joystick *js){
     js->down = js->down ^ 1;
 }
-/*void joystick_fire(joystick *js){
+void joystick_fire(joystick *js){
     js->fire = js->fire ^ 1;
-}*/
+}
