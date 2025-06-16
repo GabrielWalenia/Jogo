@@ -14,10 +14,11 @@ arma *arma_create(){
     return gun; 
 
 }
-municao *arma_shot(short x, short y, char trajectory, arma *gun){
+municao *arma_shot(int x, int y, char trajectory, arma *gun){
 
-    municao *shot = (municao *) malloc(sizeof(municao));
+    municao *shot = municao_create(x, y, trajectory, gun->disparos);
     if(!shot) return NULL;
+    //printf("disparo");
     return shot;
 
 }

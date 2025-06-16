@@ -8,6 +8,7 @@ joystick *joystick_create(){
 	js->left = 0;
 	js->up = 0;
 	js->down = 0;
+    js->fire =0 ;
 	return js;	
 }
 void joystick_destroy(joystick *js){

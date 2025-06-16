@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include "municao.h"
 
-municao *municao_create(short x, short y, char trajectory, municao *next){
+municao *municao_create(int x, int y, char trajectory, municao *next){
     municao *shot = (municao *) malloc(sizeof(municao));
     shot->x = x;
     shot->y = y;
     shot->trajectory = trajectory;
-    shot->next = (struct municao*) next;	;
+    shot->next = (struct municao*) next;
     return shot;
 }
 void municao_move(municao *shots){

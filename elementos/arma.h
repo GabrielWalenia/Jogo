@@ -12,6 +12,6 @@ typedef struct{
 } arma;
 
 arma *arma_create();
-municao *arma_shot(short x, short y, char trajectory, arma *gun);
+municao *arma_shot(int x, int y, char trajectory, arma *gun);
 void arma_destroy(arma *gun);
 #endif
