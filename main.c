@@ -11,8 +11,8 @@
 #include "./elementos/arma.h"
 #include "./elementos/municao.h"
 
-#define SCREEN_X 640
-#define SCREEN_Y 480
+#define SCREEN_X 650
+#define SCREEN_Y 515
 
 unsigned char check_kill(personagem *killer, personagem *victim){
 
@@ -34,6 +34,8 @@ void update_bullets(personagem *player){
 
         if(!index->trajectory) index->x -= BULLET_MOVE;
         else if(index->trajectory == 1) index->x += BULLET_MOVE;
+        else if(index->trajectory == 2) index->y -= BULLET_MOVE;
+        else if(index->trajectory == 3) index->y += BULLET_MOVE;
 
         if((index->x<0)||(index->x>SCREEN_X)){
             if(previous){
@@ -59,6 +61,8 @@ void update_bullets(personagem *player){
 void update_position(personagem *player){
     if (player->js->left){																																										
 		personagem_move(player, 1, 0, SCREEN_X, SCREEN_Y);
+        //personagem_sprite = al_load_bitmap("./sprites/Cowboy/Cowboy4_idle with gun_0.png");
+        //al_draw_bitmap(personagem_sprite, player->x, player->y, 0);
         player->face = 0;																																				
 		//if (collision_2D(player_1, player_2)) square_move(player_1, -1, 0, X_SCREEN, Y_SCREEN);																											
 	}
@@ -68,11 +72,13 @@ void update_position(personagem *player){
 		//if (collision_2D(player_1, player_2)) square_move(player_1, -1, 1, X_SCREEN, Y_SCREEN);																											
 	}
     if (player->js->up){																																										
-		personagem_move(player, 1, 2, SCREEN_X, SCREEN_Y);																																				
+		personagem_move(player, 1, 2, SCREEN_X, SCREEN_Y);		
+        player->face = 2;																																			
 		//if (collision_2D(player_1, player_2)) square_move(player_1, -1, 1, X_SCREEN, Y_SCREEN);																											
 	}
     if (player->js->down){																																									
-		personagem_move(player, 1, 3, SCREEN_X, SCREEN_Y);																												
+		personagem_move(player, 1, 3, SCREEN_X, SCREEN_Y);
+        player->face = 3;																												
 		//if (collision_2D(player_1, player_2)) square_move(player_1, -1, 1, X_SCREEN, Y_SCREEN);																		
 	}
     if (player->js->fire){																																							
@@ -88,6 +94,7 @@ void update_position(personagem *player){
 int main(void){
     al_init();
     al_init_primitives_addon();
+    al_init_image_addon();
     al_install_keyboard();
     
     //int frameWidth = 128;
@@ -98,14 +105,19 @@ int main(void){
     ALLEGRO_FONT *font = al_create_builtin_font();
     ALLEGRO_DISPLAY *disp = al_create_display(SCREEN_X, SCREEN_Y);
     
-    //ALLEGRO_BITMAP *personagem_sprite;
+    ALLEGRO_BITMAP *personagem_sprite;
+    personagem_sprite = al_load_bitmap("./sprites/Cowboy/Cowboy4_idle with gun_0.png");
+    if(!personagem_sprite){
+        printf("Bitmap não encontrado!");
+        return 1;
+    }
     //al_set_window_title(disp, "fase 1");
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(disp));
     al_register_event_source(queue, al_get_timer_event_source(timer));
 
-    personagem *player = personagem_create(50, 55, 1, 60, 60, SCREEN_X, SCREEN_Y);
+    personagem *player = personagem_create(25, 35, 1, SCREEN_X/2, SCREEN_Y/2, SCREEN_X, SCREEN_Y-20);
     if(!player) return 1;
     
     ALLEGRO_EVENT event;
@@ -135,13 +147,17 @@ int main(void){
     
                 update_position(player);	
                 al_clear_to_color(al_map_rgb(0, 0, 0));
+                al_draw_filled_rectangle(0, SCREEN_Y-20, SCREEN_X, SCREEN_Y, al_map_rgb(0,0, 255));
+
                 al_draw_filled_rectangle(player->x - player->side_x/2, player->y - player->side_y/2,
                 player->x + player->side_x/2, player->y + player->side_y/2, al_map_rgb(255, 0, 0));
+                al_draw_bitmap(personagem_sprite, player->x-14, player->y-37, 0);
                 for (municao *index = player->gun->disparos; index != NULL; index = (municao*) index->next)
                   al_draw_filled_circle(index->x, index->y, 2, al_map_rgb(255, 0, 0));
                 if (player->gun->timer) player->gun->timer-=1;
-                //al_draw_bitmap(personagem_sprite, player->x, player->y, 0);
+
                 al_flip_display();
+                
             }
 
             else if ((event.type == ALLEGRO_EVENT_KEY_DOWN) || (event.type == ALLEGRO_EVENT_KEY_UP)){
@@ -160,7 +176,7 @@ int main(void){
     al_destroy_font(font);
     al_destroy_display(disp);
     al_destroy_timer(timer);
-    //al_destroy_bitmap(personagem_sprite);
+    al_destroy_bitmap(personagem_sprite);
     al_destroy_event_queue(queue);
 
     return 0;

@@ -56,7 +56,9 @@ void personagem_shot(personagem *player){
 	municao *shot = NULL;
 
 	if (!player->face) shot = arma_shot(player->x - player->side_x/2, player->y, player->face, player->gun);										
-	else if (player->face == 1) shot = arma_shot(player->x + player->side_x/2, player->y, player->face, player->gun);							
+	else if (player->face == 1) shot = arma_shot(player->x + player->side_x/2, player->y, player->face, player->gun);	
+    else if (player->face == 2) shot = arma_shot(player->x /*+ player->side_x/2*/, player->y - player->y/2, player->face, player->gun);
+    else if (player->face == 3) shot = arma_shot(player->x /*+ player->side_x/2*/, player->y + player->y/2, player->face, player->gun);						
 	if (shot) player->gun->disparos = shot;
 }
 void personagem_destroy(personagem *player){
