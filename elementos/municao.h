@@ -2,7 +2,7 @@
 #define __MUNICAO__
 
 
-#define BULLET_MOVE 5
+#define BULLET_MOVE 15
 typedef struct{
     int dano;
     //char tipo;

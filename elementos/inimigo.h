@@ -1,16 +1,22 @@
 #ifndef __INIMIGO__
 #define __INIMIGO__
 
+#include "arma.h"
+#define ENEMY_STEPS 10
+
 typedef struct {
-    unsigned char side_x;
-    unsigned char side_y;
-    unsigned int x;
-    unsigned int y;
+    char side_x;
+    char side_y;
+    char face;
+    int x;
+    int y;
+    arma *gun;
     //unsigned char hp; -> cenas para proximos capitulos
 
 } inimigo;
 
-inimigo *inimigo_create(unsigned char side_x, unsigned char side_y, unsigned int x, unsigned int y, unsigned int max_x, unsigned int max_y);
-void inimigo_move();
+inimigo *inimigo_create(char side_x, char side_y, char face, int x, int y, int max_x, int max_y);
+void inimigo_move(inimigo *enemy, int steps, char trajectory, int max_x, int max_y);
 void inimigo_destroy(inimigo *enemy);
+void inimigo_shot(inimigo *enemy);
 #endif

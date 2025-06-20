@@ -4,7 +4,7 @@
 #include "joystick.h"
 #include "municao.h"
 
-#define PLAYER_STEPS 20
+#define PLAYER_STEPS 10
 
 personagem *personagem_create(char side_x, char side_y, char face, int x, int y, 
   int max_x, int max_y){
@@ -26,7 +26,7 @@ personagem *personagem_create(char side_x, char side_y, char face, int x, int y,
         free(player);
         return NULL;
     }
-
+    player->falling = true;
     player->side_x = side_x;
     player->side_y = side_y;
     player->face = face;
@@ -65,4 +65,8 @@ void personagem_destroy(personagem *player){
     joystick_destroy(player->js);	
     arma_destroy(player->gun);
     free(player);
+}
+
+void personagem_jump(personagem player, int max_x, int max_y){
+
 }
