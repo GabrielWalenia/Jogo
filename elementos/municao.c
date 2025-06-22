@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include "municao.h"
 
-municao *municao_create(int x, int y, char trajectory, municao *next){
+municao *municao_create(int x, int y, char trajectory, municao *next, ALLEGRO_BITMAP *image){
     municao *shot = (municao *) malloc(sizeof(municao));
     shot->x = x;
     shot->y = y;
     shot->trajectory = trajectory;
     shot->next = (struct municao*) next;
+    shot->image = image;
     return shot;
 }
 void municao_move(municao *shots){
@@ -16,5 +17,6 @@ void municao_move(municao *shots){
     }
 }
 void municao_destroy(municao *shot){
+    al_destroy_bitmap(shot->image);
     free(shot);
 }

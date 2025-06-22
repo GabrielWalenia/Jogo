@@ -14,9 +14,10 @@ arma *arma_create(){
     return gun; 
 
 }
-municao *arma_shot(int x, int y, char trajectory, arma *gun){
 
-    municao *shot = municao_create(x, y, trajectory, gun->disparos);
+municao *arma_shot(int x, int y, char trajectory, arma *gun, ALLEGRO_BITMAP *image){
+
+    municao *shot = municao_create(x, y, trajectory, gun->disparos, image);
     if(!shot) return NULL;
     //printf("disparo");
     return shot;

@@ -3,6 +3,10 @@
         "allegro_image.h": "c",
         "stdlib.h": "c",
         "allegro5.h": "c",
-        "arma.h": "c"
+        "arma.h": "c",
+        "bitmap.h": "c",
+        "personagem.h": "c",
+        "municao.h": "c",
+        "objetos.h": "c"
     }
 }
